@@ -1,0 +1,14 @@
+<launch>
+    <node name="planning" pkg="cone_detector" type="cone_detector" output="screen"> 
+        <rosparam command="load" file="$(find cone_detector)/config/cone_detector.yaml" /> <!--Load parameters config files--> >     
+    </node>   
+<!--     <group ns="rvz">
+        <node name="rviz" pkg="rviz" type="rviz" respawn="false" args="-d $(find cone_detector)/rvz/detector.rviz"/>
+    </group> -->
+
+</launch>
+
+
+<!-- <group if="$(arg rviz)">
+    <node name="rviz" pkg="rviz" type="rviz" respawn="false" args="-d $(find lidar_single_fusion)/launch/fusion.rviz" />
+  </group> -->

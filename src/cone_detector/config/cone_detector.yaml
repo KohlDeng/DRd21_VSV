@@ -1,0 +1,25 @@
+# Params
+
+max_iter_num: 4
+
+max_search_num: 3
+
+max_beam_cost: 1.5
+
+# Weight
+
+beam_weight:
+  w_c: 1
+  w_k: 0.5
+  w_w: 0.25
+  w_d: 0.25
+
+path_weight:
+  w_k: 0.4
+  w_w: 0.2
+  w_c: 0.4
+  w_b: 0.2
+  w_r: 0.2
+
+
+node_rate: 50   # [Herz]

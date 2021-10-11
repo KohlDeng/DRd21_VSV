@@ -1,0 +1,5 @@
+<launch>
+    <node name="track_control" pkg="track_control" type="track_control" output="screen">
+        <rosparam command="load" file="$(find track_control)/config/track_drive.yaml" /> <!--Load parameters from config files-->
+    </node>
+</launch>

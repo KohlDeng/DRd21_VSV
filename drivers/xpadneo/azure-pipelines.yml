@@ -1,0 +1,30 @@
+# C/C++ with GCC
+# Build your C/C++ project with GCC using make.
+# Add steps that publish test results, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/c-cpp/gcc
+
+trigger:
+- master
+
+strategy:
+  matrix:
+    Ubuntu 18.04 LTS:
+      imageName: 'ubuntu-18.04'
+    Ubuntu 20.04 LTS:
+      imageName: 'ubuntu-20.04'
+
+pool:
+  vmImage: $(imageName)
+
+steps:
+- script: |
+    sudo apt-get update
+    sudo apt-get install -y linux-headers-`uname -r`
+    sudo apt-get install -y dkms
+  displayName: 'setup'
+- script: |
+    sudo ./install.sh --verbose
+  displayName: 'install'
+- script: |
+    sudo ./uninstall.sh --verbose
+  displayName: 'uninstall'

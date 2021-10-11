@@ -1,0 +1,60 @@
+# Subscriber
+car_state_topic_name: /estimation/slam/state
+
+map_topic_name: /localmap
+
+# Publisher
+ctrl_cmd_topic_name: /control/pure_pursuit/control_command
+
+ref_path_topic_name: /visual/ref_path
+
+predict_path_topic_name: /visual/pre_path
+
+# MPC params:
+# 其他未输入的参数，详见“Utils/param.h”
+# MPC规划权重参数，以下参数会影响MPC的开环优化的LOSS函数
+weight:
+  px: 1.5                #1.5
+  py: 1.5
+  pyaw: 8
+  cte: 1                 #横向位置偏差在loss函数中的权重
+  epsi: 4                #航向角偏差在loss函数中的权重
+  v: 0.4
+  steer: 4
+  throttle: 10
+  steer_rate: 2000
+  throttle_rate: 10
+  #以上参数是loss函数优化的权重
+  desire_mpc_vel: 20        #15  #期望速度，限制速度，在生成refline中应用，即速度的上限值，详见“Track/trackdrive_track.cpp”
+
+# Pure Pursuit params:
+desire_pp_vel: 3       #3 #pp限制速度，在pp算法里面不能调太大，受到算法本身限制
+
+car_length: 1.88    #车辆轴距
+
+look_ahead: 20      #20 pp算法参数，前视距离
+
+# other params:
+# N、dt与预测轨迹的范围有关，N会决定MPC模型的变量数
+# 具体公式：n_vars = state_size*N +2*(N-1); n_constrains = state_size*N;
+# 同时，N和dt会影响refline，N影响参考轨迹的range，dt影响refline的精度，文件详见“Track/trackdrive_track.cpp”
+N: 40               #40 mpc预测步长
+
+dt: 0.08            #mpc计算的时间间隔
+
+initial_velocity: 2 #mpc设定的赛车初始速度
+
+max_lat_acc: 8     #mpc最大的侧向加速度 3
+
+interval: 0.08      #样条曲线采样间隔
+
+
+#三种工况对应的任务
+mission: trackdrive          # [trackdrive, skidpad, acceleration]
+
+controller: mpc  # [mpc, pure_pursuit]
+
+#确认是仿真实验
+simulation: true
+
+node_rate: 100   # [Herz]
